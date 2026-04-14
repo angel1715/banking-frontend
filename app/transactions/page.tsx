@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import API from "@/lib/api";
-import Navbar from "@/components/Navbar";
-import ProtectedRoute from "@/components/ProtectedRoute";
-import { getUserFromToken } from "@/lib/getUser";
+import API from "../../lib/api";
+import Navbar from "../../components/Navbar";
+import ProtectedRoute from "../../components/ProtectedRoute";
+import { getUserFromToken } from "../../lib/getUser";
 
 type Transaction = {
   _id: string;
