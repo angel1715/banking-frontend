@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import API from "../../lib/api";
-import Navbar from "../../components/Navbar";
-import ProtectedRoute from "../../components/ProtectedRoute";
-import { getUserFromToken } from "../../lib/getUser";
+import API from "@/lib/api";
+import Navbar from "@/components/Navbar";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import { getUserFromToken } from "@/lib/getUser";
 
 type Transaction = {
   _id: string;
@@ -16,10 +16,9 @@ type Transaction = {
 
 export default function TransactionsPage() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // 🔥 obtener usuario correctamente
   useEffect(() => {
     const user = getUserFromToken();
     setUserId(user?.id || null);
@@ -29,7 +28,7 @@ export default function TransactionsPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await API.get("/transactions", {
+      const res = await API.get<Transaction[]>("/transactions", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -47,17 +46,22 @@ export default function TransactionsPage() {
     fetchTransactions();
   }, []);
 
+  if (loading) {
+    return (
+      <ProtectedRoute>
+        <Navbar />
+        <div className="p-6">Loading transactions...</div>
+      </ProtectedRoute>
+    );
+  }
+
   return (
     <ProtectedRoute>
       <Navbar />
 
       <div className="p-6 bg-gray-100 min-h-screen">
-        <h2 className="text-gray-500 text-2xl font-bold mb-6">Transactions</h2>
+        <h2 className="text-2xl font-bold mb-6">Transactions</h2>
 
-        {/* 🔥 Loading */}
-        {loading && <p>Loading transactions...</p>}
-
-        {/* 🔥 Lista */}
         <div className="space-y-4">
           {transactions.map((tx) => {
             const isSent = tx.from._id === userId;
@@ -65,14 +69,14 @@ export default function TransactionsPage() {
             return (
               <div
                 key={tx._id}
-                className="bg-white p-4 rounded-xl shadow-md flex justify-between items-center"
+                className="bg-white p-4 rounded-xl shadow-md flex justify-between"
               >
                 <div>
                   <p className="text-sm text-gray-500">
                     {isSent ? "Sent to" : "Received from"}
                   </p>
 
-                  <p className="font-bold text-gray-700">
+                  <p className="font-bold">
                     {isSent ? tx.to.email : tx.from.email}
                   </p>
 
@@ -82,7 +86,7 @@ export default function TransactionsPage() {
                 </div>
 
                 <div
-                  className={`text-lg font-bold ${
+                  className={`font-bold ${
                     isSent ? "text-red-500" : "text-green-600"
                   }`}
                 >

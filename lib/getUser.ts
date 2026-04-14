@@ -3,7 +3,10 @@ export const getUserFromToken = () => {
 
     if (!token) return null;
 
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    
-    return payload;
+    try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        return payload;
+    } catch (error) {
+        return null;
+    }
 };

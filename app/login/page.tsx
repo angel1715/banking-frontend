@@ -6,6 +6,10 @@ import Input from "@/components/Input";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  type LoginResponse = {
+    token: string;
+  };
+
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -13,7 +17,7 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      const res = await API.post("/auth/login", {
+      const res = await API.post<LoginResponse>("/auth/login", {
         email,
         password,
       });
@@ -29,7 +33,9 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-2xl shadow-md w-96">
-        <h2 className="text-gray-600 text-2xl font-bold mb-6 text-center">Login</h2>
+        <h2 className="text-gray-600 text-2xl font-bold mb-6 text-center">
+          Login
+        </h2>
 
         <Input
           placeholder="Email"
@@ -39,16 +45,12 @@ export default function LoginPage() {
 
         <div className="mt-4" />
 
-         
         <Input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          
         />
-
-      
 
         <button
           onClick={handleLogin}

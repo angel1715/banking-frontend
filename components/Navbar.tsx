@@ -5,28 +5,24 @@ import { useRouter } from "next/navigation";
 export default function Navbar() {
   const router = useRouter();
 
-  const logout = () => {
+  const handleLogout = () => {
     localStorage.removeItem("token");
     router.push("/login");
   };
 
   return (
-    <div className="flex justify-between items-center p-4 bg-blue-600 text-white">
-      <h1 className="font-bold text-lg">Banking App</h1>
+    <div className="bg-black text-white p-4 flex justify-between">
+      <h1 className="font-bold">Banking App</h1>
 
-      <button
-        onClick={logout}
-        className="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600"
-      >
-        Logout
-      </button>
-
-      <button
-        onClick={() => router.push("/transactions")}
-        className="bg-white text-blue-600 px-4 py-2 rounded-lg"
-      >
-        Transactions
-      </button>
+      <div className="flex gap-4">
+        <button onClick={() => router.push("/dashboard")}>Dashboard</button>
+        <button onClick={() => router.push("/transactions")}>
+          Transactions
+        </button>
+        <button onClick={handleLogout} className="text-red-400">
+          Logout
+        </button>
+      </div>
     </div>
   );
 }
