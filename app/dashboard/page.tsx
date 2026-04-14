@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import API from "../../lib/api";
-import Navbar from "../../components/Navbar";
-import ProtectedRoute from "../..//components/ProtectedRoute";
+import API from "@/lib/api";
+import Navbar from "@/components/Navbar";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function Dashboard() {
   const [balance, setBalance] = useState<number | null>(null);
