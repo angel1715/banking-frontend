@@ -60,7 +60,7 @@ export default function TransactionsPage() {
       <Navbar />
 
       <div className="p-6 bg-gray-100 min-h-screen">
-        <h2 className="text-2xl font-bold mb-6">Transactions</h2>
+        <h2 className="text-gray-600 text-2xl font-bold mb-6">Transactions</h2>
 
         <div className="space-y-4">
           {transactions.map((tx) => {
