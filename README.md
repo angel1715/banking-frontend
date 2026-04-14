@@ -43,7 +43,7 @@ npm run dev
 
 ## 🌐 Live Demo
 
-https://your-frontend.vercel.app
+https://https://banking-frontend-kappa.vercel.app/
 
 ## 📱 Pages
 
