@@ -76,7 +76,7 @@ export default function TransactionsPage() {
                     {isSent ? "Sent to" : "Received from"}
                   </p>
 
-                  <p className="font-bold">
+                  <p className="text-gray-500 font-bold">
                     {isSent ? tx.to.email : tx.from.email}
                   </p>
 
