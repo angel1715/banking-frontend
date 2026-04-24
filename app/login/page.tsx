@@ -4,7 +4,7 @@ import { useState } from "react";
 import API from "@/lib/api";
 import Input from "@/components/Input";
 import { useRouter } from "next/navigation";
-
+import toast from "react-hot-toast";
 export default function LoginPage() {
   type LoginResponse = {
     token: string;
@@ -23,10 +23,10 @@ export default function LoginPage() {
       });
 
       localStorage.setItem("token", res.data.token);
-
+      toast.success("Login Successfully");
       router.push("/dashboard");
     } catch (error: any) {
-      alert(error.response?.data?.message || "Error");
+      toast.error(error.response?.data?.message || "Error");
     }
   };
 

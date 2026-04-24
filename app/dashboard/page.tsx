@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import API from "@/lib/api";
 import Navbar from "@/components/Navbar";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import toast from "react-hot-toast";
 
 export default function Dashboard() {
   type AccountResponse = {
@@ -66,7 +67,7 @@ export default function Dashboard() {
         );
       }
 
-      alert("Success ✅");
+      toast.success(action + " Successfully ✅");
 
       setAmount("");
       setEmail("");
@@ -74,7 +75,7 @@ export default function Dashboard() {
 
       fetchAccount(); // 🔥 refrescar balance
     } catch (error: any) {
-      alert(error.response?.data?.message || "Error ❌");
+      toast.error(error.response?.data?.message || "Error ❌");
     }
   };
 

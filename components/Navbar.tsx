@@ -1,12 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-
+import toast from "react-hot-toast";
 export default function Navbar() {
   const router = useRouter();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    toast.success("Logout Successfully");
     router.push("/login");
   };
 

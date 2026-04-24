@@ -4,7 +4,7 @@ import { useState } from "react";
 import API from "@/lib/api";
 import Input from "@/components/Input";
 import { useRouter } from "next/navigation";
-
+import toast from "react-hot-toast";
 export default function RegisterPage() {
   const router = useRouter();
 
@@ -17,10 +17,10 @@ export default function RegisterPage() {
         email,
         password,
       });
-
+      toast.success("Registered successfully")
       router.push("/login");
     } catch (error: any) {
-      alert(error.response?.data?.message || "Error");
+      toast.error(error.response?.data?.message || "Error");
     }
   };
 
